@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>EcoConcrete — Carbon Capture in Every Pour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --concrete: #b0a898;
+    --concrete-dark: #5a524a;
+    --green: #2d6a4f;
+    --green-light: #52b788;
+    --green-pale: #d8f3dc;
+    --carbon: #0d0d0d;
+    --offwhite: #f5f2ee;
+    --dust: #e0dbd4;
+    --accent: #a7c957;
+    --rust: #c9a227;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--carbon);
+    color: var(--offwhite);
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 4rem;
+    background: rgba(13,13,13,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  .nav-logo span { color: var(--offwhite); }
+
+  nav ul {
+    list-style: none;
+    display: flex; gap: 2.5rem;
+  }
+
+  nav ul a {
+    text-decoration: none;
+    color: var(--concrete);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  nav ul a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--green);
+    color: var(--offwhite) !important;
+    padding: 0.5rem 1.4rem;
+    border-radius: 2px;
+  }
+
+  .nav-cta:hover { background: var(--green-light); color: var(--carbon) !important; }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem 4rem;
+    position: relative; z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block; width: 2rem; height: 1px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 em {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    color: var(--green-light);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--concrete);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--carbon);
+    padding: 0.85rem 2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+    border: none;
+    font-family: inherit;
+  }
+
+  .btn-primary:hover {
+    background: var(--green-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(82,183,136,0.25);
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: var(--offwhite);
+    padding: 0.85rem 2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: all 0.2s;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-right {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .molecule-canvas {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  .hero-stat-strip {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    display: flex;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    background: rgba(13,13,13,0.6);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero-stat {
+    flex: 1;
+    padding: 1.8rem 2rem;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+  }
+
+  .hero-stat:last-child { border-right: none; }
+
+  .stat-val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--concrete);
+    margin-top: 0.2rem;
+  }
+
+  /* ─── SECTION COMMONS ─── */
+  section { padding: 7rem 4rem; }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.7rem;
+  }
+
+  .section-label::before {
+    content: '';
+    display: block; width: 1.5rem; height: 1px;
+    background: var(--green-light);
+  }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  h2 em { color: var(--green-light); font-style: italic; }
+
+  /* ─── PROBLEM ─── */
+  #problem {
+    background: #111;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .problem-left p {
+    color: var(--concrete);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.02rem;
+  }
+
+  .problem-cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+  }
+
+  .prob-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 1.5rem;
+  }
+
+  .prob-card .icon {
+    font-size: 2rem; margin-bottom: 0.8rem;
+  }
+
+  .prob-card h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .prob-card p {
+    font-size: 0.85rem;
+    color: var(--concrete);
+    line-height: 1.6;
+    margin-top: 0.4rem;
+  }
+
+  /* ─── SCIENCE ─── */
+  #science {
+    background: var(--carbon);
+    text-align: center;
+  }
+
+  #science h2 { margin-bottom: 0.5rem; }
+
+  .science-sub {
+    color: var(--concrete);
+    font-size: 1rem;
+    max-width: 580px;
+    margin: 0 auto 4rem;
+    line-height: 1.7;
+  }
+
+  .reaction-display {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(82,183,136,0.2);
+    border-radius: 8px;
+    padding: 3rem;
+    max-width: 700px;
+    margin: 0 auto 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reaction-display::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(82,183,136,0.06) 0%, transparent 70%);
+  }
+
+  .chem-eq {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    color: var(--offwhite);
+    position: relative;
+  }
+
+  .chem-eq .highlight { color: var(--green-light); }
+  .chem-eq .arrow { color: var(--accent); margin: 0 0.5rem; }
+  .chem-eq .product { color: var(--accent); }
+
+  .chem-note {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--concrete);
+    letter-spacing: 0.05em;
+  }
+
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .step {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 2rem 1.5rem;
+    text-align: left;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .step:hover {
+    border-color: rgba(82,183,136,0.3);
+    transform: translateY(-4px);
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: rgba(255,255,255,0.05);
+    position: absolute;
+    top: 0.5rem; right: 1rem;
+    line-height: 1;
+  }
+
+  .step-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+
+  .step h4 {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--offwhite);
+  }
+
+  .step p {
+    font-size: 0.82rem;
+    color: var(--concrete);
+    line-height: 1.6;
+  }
+
+  /* ─── ADVANTAGE ─── */
+  #advantage {
+    background: #0a1a0f;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #advantage::before {
+    content: 'VS';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.02);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .advantage-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .comp-col h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.5rem;
+    color: var(--concrete);
+  }
+
+  .comp-col h3 span { color: var(--accent); }
+
+  .comp-row {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--concrete);
+    transition: all 0.2s;
+  }
+
+  .comp-row.eco {
+    border-color: rgba(82,183,136,0.3);
+    color: var(--offwhite);
+    background: rgba(82,183,136,0.06);
+  }
+
+  .comp-row.eco:hover {
+    border-color: var(--green-light);
+    background: rgba(82,183,136,0.1);
+  }
+
+  .comp-row .check { color: var(--green-light); font-size: 1rem; }
+  .comp-row .cross { color: #c0392b; font-size: 1rem; }
+
+  .vs-divider {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding-top: 4rem;
+    gap: 1rem;
+  }
+
+  .vs-circle {
+    width: 64px; height: 64px;
+    border: 2px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    color: var(--concrete);
+  }
+
+  .vs-line {
+    width: 1px; height: 3rem;
+    background: rgba(255,255,255,0.08);
+  }
+
+  /* ─── MARKET ─── */
+  #market {
+    background: #0d0d0d;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .market-chart {
+    position: relative;
+    text-align: center;
+  }
+
+  .donut-container {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    margin: 0 auto;
+  }
+
+  .donut-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .market-legend {
+    display: flex; flex-direction: column; gap: 0.8rem;
+    margin-top: 2rem;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .legend-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.85rem; color: var(--concrete);
+  }
+
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .market-right p {
+    color: var(--concrete);
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+    font-size: 1rem;
+  }
+
+  .market-targets {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2rem;
+  }
+
+  .target-pill {
+    background: rgba(82,183,136,0.08);
+    border: 1px solid rgba(82,183,136,0.2);
+    border-radius: 4px;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--green-pale);
+  }
+
+  .target-pill strong {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-light);
+    margin-bottom: 0.3rem;
+  }
+
+  /* ─── BUSINESS MODEL ─── */
+  #model {
+    background: #111;
+    text-align: center;
+  }
+
+  .model-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 4rem;
+    text-align: left;
+  }
+
+  .model-card {
+    background: var(--carbon);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 6px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+
+  .model-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+  }
+
+  .model-card:hover { border-color: rgba(167,201,87,0.3); transform: translateY(-6px); }
+  .model-card:hover::after { transform: scaleX(1); }
+
+  .model-card.featured {
+    background: rgba(45,106,79,0.15);
+    border-color: rgba(82,183,136,0.3);
+  }
+
+  .model-card.featured::after { background: var(--green-light); transform: scaleX(1); }
+
+  .badge {
+    background: var(--green);
+    color: var(--offwhite);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+
+  .model-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: var(--concrete);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .model-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--offwhite);
+  }
+
+  .model-card p {
+    font-size: 0.88rem;
+    color: var(--concrete);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+
+  .model-example {
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+    color: var(--accent);
+    font-family: 'DM Sans', monospace;
+  }
+
+  /* ─── IMPACT ─── */
+  #impact {
+    background: var(--green);
+    color: var(--carbon);
+    text-align: center;
+  }
+
+  #impact h2 { color: var(--carbon); }
+  #impact h2 em { color: rgba(13,13,13,0.5); }
+  #impact .section-label { color: rgba(13,13,13,0.6); }
+  #impact .section-label::before { background: rgba(13,13,13,0.4); }
+
+  .impact-numbers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .impact-num {
+    background: rgba(255,255,255,0.15);
+    border-radius: 6px;
+    padding: 2.5rem 1.5rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .impact-num .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    display: block;
+    color: var(--carbon);
+    line-height: 1;
+  }
+
+  .impact-num .unit {
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    color: rgba(13,13,13,0.7);
+    margin-top: 0.4rem;
+  }
+
+  /* ─── ROADMAP ─── */
+  #roadmap {
+    background: var(--carbon);
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 4rem;
+    position: relative;
+  }
+
+  .roadmap-grid::before {
+    content: '';
+    position: absolute;
+    top: 2rem; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(82,183,136,0.4), transparent);
+  }
+
+  .phase {
+    padding: 2rem 1.5rem;
+    position: relative;
+  }
+
+  .phase-dot {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--carbon);
+    border: 2px solid var(--concrete);
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s;
+  }
+
+  .phase:hover .phase-dot {
+    background: var(--green-light);
+    border-color: var(--green-light);
+    box-shadow: 0 0 20px rgba(82,183,136,0.5);
+  }
+
+  .phase-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--green-light);
+    margin-bottom: 0.4rem;
+  }
+
+  .phase h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+    color: var(--offwhite);
+  }
+
+  .phase-time {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .phase ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.4rem;
+  }
+
+  .phase li {
+    font-size: 0.82rem;
+    color: var(--concrete);
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .phase li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--green-light);
+    font-size: 0.7rem;
+  }
+
+  /* ─── CTA / FOOTER ─── */
+  #cta {
+    background: #0d1a0d;
+    text-align: center;
+    padding: 8rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #cta::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(82,183,136,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  #cta h2 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  #cta p {
+    font-size: 1.05rem;
+    color: var(--concrete);
+    max-width: 520px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .cta-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    position: relative;
+  }
+
+  footer {
+    background: #080808;
+    padding: 2rem 4rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+  }
+
+  footer .logo span { color: rgba(255,255,255,0.4); }
+
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── CREATIVE CONTACT MODAL ─── */
+  .contact-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s, opacity 0.25s ease;
+  }
+
+  .contact-modal.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .modal-card {
+    background: rgba(18,22,20,0.96);
+    border: 1px solid rgba(82,183,136,0.4);
+    border-radius: 32px;
+    max-width: 480px;
+    width: 90%;
+    padding: 2rem 2rem 2.2rem;
+    text-align: center;
+    box-shadow: 0 25px 45px rgba(0,0,0,0.6), 0 0 0 1px rgba(82,183,136,0.2);
+    transform: scale(0.96);
+    transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  }
+
+  .contact-modal.active .modal-card {
+    transform: scale(1);
+  }
+
+  .modal-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.9rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .modal-card .sub {
+    font-size: 0.85rem;
+    color: var(--concrete);
+    margin-bottom: 2rem;
+    letter-spacing: 0.02em;
+  }
+
+  .contact-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 60px;
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    transition: all 0.2s;
+  }
+
+  .contact-item:hover {
+    border-color: var(--green-light);
+    background: rgba(82,183,136,0.1);
+  }
+
+  .contact-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  .contact-info .emoji {
+    font-size: 1.6rem;
+  }
+
+  .contact-info a {
+    color: var(--offwhite);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    font-weight: 500;
+  }
+
+  .contact-info a:hover {
+    color: var(--accent);
+  }
+
+  .copy-btn {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: var(--concrete);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 40px;
+    transition: all 0.2s;
+    font-family: 'DM Sans', monospace;
+  }
+
+  .copy-btn:hover {
+    background: var(--green-light);
+    color: var(--carbon);
+  }
+
+  .close-modal {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.6rem 1.5rem;
+    border-radius: 40px;
+    color: var(--concrete);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: fit-content;
+    margin: 0 auto;
+  }
+
+  .close-modal:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { display: none; }
+    section { padding: 5rem 1.5rem; }
+    #hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 7rem 1.5rem 2rem; }
+    .hero-right { height: 300px; }
+    #problem, #market { grid-template-columns: 1fr; gap: 3rem; }
+    .process-steps, .model-cards, .impact-numbers, .roadmap-grid { grid-template-columns: 1fr 1fr; }
+    .advantage-grid { grid-template-columns: 1fr; }
+    .vs-divider { flex-direction: row; padding-top: 0; }
+    .vs-line { width: 3rem; height: 1px; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Eco<span>Concrete</span></div>
+  <ul>
+    <li><a href="#problem">Problem</a></li>
+    <li><a href="#science">Science</a></li>
+    <li><a href="#advantage">Advantage</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#model">Model</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#cta" class="nav-cta">Partner With Us</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Carbon Capture Innovation</div>
+    <h1>Concrete That <em>Eats</em> Carbon</h1>
+    <p class="hero-sub">A nano-mineral additive that turns CO₂ emissions into structural calcium carbonate — permanently locking carbon inside every building, bridge, and road.</p>
+    <div class="hero-buttons">
+      <a href="#science" class="btn-primary">See the Science</a>
+      <a href="#model" class="btn-outline">Business Model</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <svg class="molecule-canvas" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="bgGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#2d6a4f" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#0d0d0d" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="glow">
+          <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+          <feMerge>
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+      <circle cx="300" cy="300" r="280" fill="url(#bgGlow)"/>
+      <line x1="100" y1="300" x2="500" y2="300" stroke="rgba(82,183,136,0.06)" stroke-width="1"/>
+      <line x1="300" y1="100" x2="300" y2="500" stroke="rgba(82,183,136,0.06)" stroke-width="1"/>
+      <circle cx="300" cy="300" r="120" fill="none" stroke="rgba(82,183,136,0.08)" stroke-width="1" stroke-dasharray="4 8"/>
+      <circle cx="300" cy="300" r="200" fill="none" stroke="rgba(82,183,136,0.05)" stroke-width="1" stroke-dasharray="2 10"/>
+      <circle class="pulse" cx="300" cy="300" r="60" fill="none" stroke="rgba(82,183,136,0.4)" stroke-width="2"/>
+      <circle class="pulse" cx="300" cy="300" r="60" fill="none" stroke="rgba(82,183,136,0.3)" stroke-width="1" style="animation-delay:1.2s"/>
+      <line x1="300" y1="300" x2="200" y2="200" stroke="rgba(82,183,136,0.3)" stroke-width="2"/>
+      <line x1="300" y1="300" x2="400" y2="200" stroke="rgba(82,183,136,0.3)" stroke-width="2"/>
+      <line x1="300" y1="300" x2="180" y2="360" stroke="rgba(82,183,136,0.3)" stroke-width="2"/>
+      <line x1="300" y1="300" x2="420" y2="380" stroke="rgba(82,183,136,0.3)" stroke-width="2"/>
+      <line x1="300" y1="300" x2="300" y2="440" stroke="rgba(82,183,136,0.3)" stroke-width="2"/>
+      <g class="mol-atom" filter="url(#glow)">
+        <circle cx="300" cy="300" r="42" fill="#2d6a4f" fill-opacity="0.8" stroke="#52b788" stroke-width="2"/>
+        <text x="300" y="307" font-family="'Bebas Neue', sans-serif" font-size="22" fill="#d8f3dc" text-anchor="middle">Ca</text>
+      </g>
+      <g class="mol-atom" style="animation-delay:0.5s" filter="url(#glow)">
+        <circle cx="200" cy="200" r="28" fill="#a7c957" fill-opacity="0.7" stroke="#a7c957" stroke-width="1.5"/>
+        <text x="200" y="207" font-family="'Bebas Neue', sans-serif" font-size="14" fill="#0d0d0d" text-anchor="middle">CO₂</text>
+      </g>
+      <g class="mol-atom" style="animation-delay:1s" filter="url(#glow)">
+        <circle cx="400" cy="200" r="22" fill="#0d0d0d" stroke="#52b788" stroke-width="1.5"/>
+        <text x="400" y="206" font-family="'Bebas Neue', sans-serif" font-size="13" fill="#52b788" text-anchor="middle">O</text>
+      </g>
+      <g class="mol-atom" style="animation-delay:1.5s" filter="url(#glow)">
+        <circle cx="180" cy="360" r="22" fill="#0d0d0d" stroke="#52b788" stroke-width="1.5"/>
+        <text x="180" y="366" font-family="'Bebas Neue', sans-serif" font-size="13" fill="#52b788" text-anchor="middle">O</text>
+      </g>
+      <g class="mol-atom" style="animation-delay:0.8s" filter="url(#glow)">
+        <circle cx="420" cy="380" r="32" fill="rgba(167,201,87,0.15)" stroke="#a7c957" stroke-width="2"/>
+        <text x="420" y="387" font-family="'Bebas Neue', sans-serif" font-size="12" fill="#a7c957" text-anchor="middle">CaCO₃</text>
+      </g>
+      <g class="mol-atom" style="animation-delay:0.3s" filter="url(#glow)">
+        <circle cx="300" cy="440" r="24" fill="#0d0d0d" stroke="rgba(82,183,136,0.5)" stroke-width="1.5"/>
+        <text x="300" y="447" font-family="'Bebas Neue', sans-serif" font-size="12" fill="rgba(82,183,136,0.7)" text-anchor="middle">Si</text>
+      </g>
+      <text x="30" y="560" font-family="'DM Sans', sans-serif" font-size="10" fill="rgba(255,255,255,0.12)" letter-spacing="2">NANO-MINERAL LATTICE SIMULATION</text>
+    </svg>
+  </div>
+  <div class="hero-stat-strip">
+    <div class="hero-stat"><span class="stat-val">8%</span><div class="stat-label">Global CO₂ from Cement</div></div>
+    <div class="hero-stat"><span class="stat-val">$600B</span><div class="stat-label">Concrete Market Size</div></div>
+    <div class="hero-stat"><span class="stat-val">100+</span><div class="stat-label">Years Carbon Storage</div></div>
+    <div class="hero-stat"><span class="stat-val">0.9T</span><div class="stat-label">CO₂ per Ton of Cement</div></div>
+  </div>
+</section>
+
+<section id="problem"><div class="problem-left reveal"><div class="section-label">The Problem</div><h2>Cement Is <em>Essential</em> — And It's Killing the Planet</h2><p>The construction industry underpins modern civilization, but cement production is one of the world's largest industrial CO₂ sources. Every ton of cement manufactured releases up to 0.9 tons of CO₂ into the atmosphere.</p><p>We can't stop building. But we can transform what building means for the climate. Governments are tightening carbon regulations. ESG pressure is mounting. The industry needs a solution that works at scale, at cost, and without operational disruption.</p><p>That solution is EcoConcrete.</p></div><div class="problem-cards reveal"><div class="prob-card"><div class="icon">🏭</div><h4>8%</h4><p>of all global CO₂ emissions come from cement production alone</p></div><div class="prob-card"><div class="icon">📈</div><h4>Rising</h4><p>demand from Asia, Middle East, and emerging economies is accelerating</p></div><div class="prob-card"><div class="icon">⚖️</div><h4>Regulations</h4><p>Carbon tax regimes and ESG mandates are creating billion-dollar compliance costs</p></div><div class="prob-card"><div class="icon">🌍</div><h4>2050</h4><p>Net-zero targets demand infrastructure decarbonization NOW, not later</p></div></div></section>
+
+<section id="science"><div class="reveal"><div class="section-label" style="justify-content:center">The Technology</div><h2>Chemistry That <em>Captures</em></h2><p class="science-sub">Our proprietary nano-mineral additive accelerates natural carbonation inside concrete, permanently mineralizing CO₂ as stable calcium carbonate — the same compound as limestone.</p></div><div class="reaction-display reveal"><div class="chem-eq"><span class="highlight">CO₂</span><span> + </span><span class="highlight">CaO</span><span class="arrow"> ⟶ </span><span class="product">CaCO₃</span></div><div class="chem-note">Carbon Dioxide + Calcium Oxide → Calcium Carbonate (Limestone) — Permanently stored inside the concrete matrix</div></div><div class="process-steps reveal"><div class="step"><span class="step-num">01</span><div class="step-icon">🧪</div><h4>Additive Mixed In</h4><p>Nano-mineral particles are blended into standard concrete mix — no special equipment required.</p></div><div class="step"><span class="step-num">02</span><div class="step-icon">⚗️</div><h4>CO₂ Reacts During Curing</h4><p>As concrete sets, atmospheric CO₂ bonds with calcium compounds, accelerated by our nano-catalysts.</p></div><div class="step"><span class="step-num">03</span><div class="step-icon">🔬</div><h4>CaCO₃ Precipitates</h4><p>Stable calcium carbonate crystals fill the microstructure, improving density and compressive strength.</p></div><div class="step"><span class="step-num">04</span><div class="step-icon">♾️</div><h4>Permanent Carbon Lock</h4><p>CO₂ is mineralized for 100+ years — not captured temporarily, but structurally embedded.</p></div></div></section>
+
+<section id="advantage"><div class="reveal" style="text-align:center"><div class="section-label" style="justify-content:center">Competitive Edge</div><h2>Why <em>EcoConcrete</em> Wins</h2></div><div class="advantage-grid reveal"><div class="comp-col"><h3>Existing <span>Competitors</span></h3><div class="comp-row"><span class="cross">✗</span> Requires CO₂ injection infrastructure</div><div class="comp-row"><span class="cross">✗</span> High capital cost, large-scale plants only</div><div class="comp-row"><span class="cross">✗</span> Designed for developed markets (North America, EU)</div><div class="comp-row"><span class="cross">✗</span> Complex supply chain dependencies</div><div class="comp-row"><span class="cross">✗</span> Limited modular / small-producer options</div></div><div class="vs-divider"><div class="vs-line"></div><div class="vs-circle">VS</div><div class="vs-line"></div></div><div class="comp-col"><h3><span>EcoConcrete</span> Advantage</h3><div class="comp-row eco"><span class="check">✓</span> No injection system — atmospheric CO₂ integration</div><div class="comp-row eco"><span class="check">✓</span> Low-cost raw materials (industrial waste minerals)</div><div class="comp-row eco"><span class="check">✓</span> Built for Central Asia, Middle East, emerging markets</div><div class="comp-row eco"><span class="check">✓</span> Drop-in additive — zero operational disruption</div><div class="comp-row eco"><span class="check">✓</span> Works with small-scale and modular concrete producers</div></div></div></section>
+
+<section id="market">
+  <div class="market-chart reveal">
+    <div class="donut-container">
+      <svg class="donut-svg" viewBox="0 0 200 200">
+        <g transform="rotate(-90 100 100)">
+          <circle cx="100" cy="100" r="80" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="22"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#a7c957" stroke-width="22" stroke-dasharray="502.65" stroke-dashoffset="452.4" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="80" fill="none" stroke="#52b788" stroke-width="22" stroke-dasharray="502.65" stroke-dashoffset="496.6" stroke-linecap="round"/>
+          <circle cx="100" cy="100" r="55" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="12"/>
+          <circle cx="100" cy="100" r="55" fill="none" stroke="#2d6a4f" stroke-width="12" stroke-dasharray="345.4" stroke-dashoffset="276.3" stroke-linecap="round"/>
+        </g>
+        <!-- Увеличенный текст для заполнения пространства -->
+        <text x="100" y="92" font-family="'Bebas Neue', sans-serif" font-size="42" fill="#a7c957" text-anchor="middle" dominant-baseline="middle" font-weight="500">$600B</text>
+        <text x="100" y="120" font-family="'DM Sans', sans-serif" font-size="11" fill="rgba(255,255,255,0.65)" text-anchor="middle" letter-spacing="1.2" font-weight="500">GLOBAL MARKET</text>
+      </svg>
+    </div>
+    <div class="market-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#a7c957"></div><span>Global Concrete Market ($600B+)</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#52b788"></div><span>Addressable: Emerging Markets ($120B)</span></div>
+      <div class="legend-item"><div class="legend-dot" style="background:#2d6a4f"></div><span>Target 5-Year Capture: $600M+</span></div>
+    </div>
+  </div>
+  <div class="market-right reveal"><div class="section-label">Market Opportunity</div><h2>A <em>$600 Billion</em> Industry Waiting to Decarbonize</h2><p>Capturing just 0.1% of the global concrete market equals $600M in annual potential. With governments mandating net-zero infrastructure and offering carbon subsidies, the market pull is enormous.</p><p>EcoConcrete targets where growth is hottest and regulatory pressure is building fastest — emerging economies that need affordable, accessible carbon solutions.</p><div class="market-targets"><div class="target-pill"><strong>Primary</strong>Cement factories &amp; producers</div><div class="target-pill"><strong>Government</strong>Infrastructure projects</div><div class="target-pill"><strong>Defense</strong>Military construction</div><div class="target-pill"><strong>Urban</strong>Smart city development</div></div></div>
+</section>
+
+<section id="model"><div class="reveal"><div class="section-label" style="justify-content:center">Revenue Model</div><h2>Three Paths to <em>Profitability</em></h2></div><div class="model-cards reveal"><div class="model-card featured"><div class="badge">Recommended</div><div class="model-letter">Option A</div><h3>Additive Sales</h3><p>Sell the additive per ton of cement produced. Revenue scales directly with production volume — no complex per-project pricing needed.</p><div class="model-example">$5–10 per ton × 1M tons = $5–10M ARR</div></div><div class="model-card"><div class="model-letter">Option B</div><h3>Carbon Credits</h3><p>Earn tradeable carbon credits for every ton of CO₂ permanently stored. Sell to corporations under ESG pressure and carbon tax regimes.</p><div class="model-example">0.1T CO₂ stored × $50 credit = $5 per ton bonus</div></div><div class="model-card"><div class="model-letter">Option C</div><h3>IP Licensing</h3><p>License the proprietary formula to major cement producers globally. High-margin, low-overhead revenue stream at scale.</p><div class="model-example">Royalty per licensed ton produced</div></div></div></section>
+
+<section id="impact"><div class="reveal"><div class="section-label">Climate Impact</div><h2>Numbers That <em>Matter</em></h2></div><div class="impact-numbers reveal"><div class="impact-num"><span class="val">100K</span><div class="unit">Tons CO₂ captured per 1M tons concrete</div></div><div class="impact-num"><span class="val">22K</span><div class="unit">Equivalent cars removed from roads annually</div></div><div class="impact-num"><span class="val">100+</span><div class="unit">Years of permanent carbon storage</div></div><div class="impact-num"><span class="val">+12%</span><div class="unit">Improvement in compressive strength</div></div></div></section>
+
+<section id="roadmap"><div class="reveal" style="text-align:center"><div class="section-label" style="justify-content:center">Development Roadmap</div><h2>From <em>Lab</em> to Global Scale</h2></div><div class="roadmap-grid reveal"><div class="phase"><div class="phase-dot"></div><div class="phase-num">Phase 01</div><h4>Lab Validation</h4><div class="phase-time">6–12 Months</div><ul><li>Nano-mineral formulation</li><li>CO₂ uptake measurement</li><li>Strength testing (ASTM)</li><li>University lab collaboration</li></ul></div><div class="phase"><div class="phase-dot"></div><div class="phase-num">Phase 02</div><h4>Pilot Program</h4><div class="phase-time">12–24 Months</div><ul><li>Local cement plant partnership</li><li>Real-world CO₂ capture data</li><li>Cost optimization</li><li>First carbon credit applications</li></ul></div><div class="phase"><div class="phase-dot"></div><div class="phase-num">Phase 03</div><h4>Certification</h4><div class="phase-time">18–30 Months</div><ul><li>ISO / ASTM certification</li><li>Patent filing (PCT)</li><li>Regulatory approval: AZ, TR, GCC</li><li>ESG reporting integration</li></ul></div><div class="phase"><div class="phase-dot"></div><div class="phase-num">Phase 04</div><h4>Scale &amp; License</h4><div class="phase-time">30+ Months</div><ul><li>Regional manufacturing</li><li>Global licensing deals</li><li>Carbon credit marketplace</li><li>Government infrastructure contracts</li></ul></div></div></section>
+
+<section id="cta"><div class="section-label reveal" style="justify-content:center">Get Involved</div><h2 class="reveal">Ready to Build a <em>Carbon-Negative</em> Future?</h2><p class="reveal">Whether you're a cement producer, government agency, investor, or research institution — EcoConcrete is looking for partners who want to turn infrastructure into a climate solution.</p><div class="cta-btns reveal"><button id="contactTeamBtn" class="btn-primary">Contact the Team</button><a href="#science" class="btn-outline">Download White Paper</a></div></section>
+
+<footer><div class="logo">Eco<span>Concrete</span></div><p>© 2025 EcoConcrete. Nano-Mineral Carbon Capture Technology.</p><p style="color:rgba(255,255,255,0.15)">Azerbaijan · Central Asia · Emerging Markets</p></footer>
+
+<div id="contactModal" class="contact-modal">
+  <div class="modal-card">
+    <h3>📞 Let’s connect</h3>
+    <div class="sub">Reach out directly — we’re ready to decarbonize together</div>
+    <div class="contact-options">
+      <div class="contact-item">
+        <div class="contact-info"><span class="emoji">📱</span><a href="tel:+994507370700">+994 50 737 07 00</a></div>
+        <button class="copy-btn" data-copy="+994700000000">Copy</button>
+      </div>
+      <div class="contact-item">
+        <div class="contact-info"><span class="emoji">✉️</span><a href="mailto:hesenovfizuli2020@gmail.com">hesenovfizuli2020@gmail.com</a></div>
+        <button class="copy-btn" data-copy="example@gmail.com">Copy</button>
+      </div>
+    </div>
+    <button class="close-modal">Close</button>
+  </div>
+</div>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Animated counters
+  const statVals = document.querySelectorAll('.stat-val');
+  const heroObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      setTimeout(() => {
+        const data = [['8','%'],['600','B+'],['100','+'],['0.9','T']];
+        statVals.forEach((el, i) => {
+          const num = parseInt(data[i][0]);
+          const suf = data[i][1];
+          const t = performance.now();
+          const animate = (now) => {
+            const progress = Math.min((now - t) / 1800, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            el.textContent = Math.floor(eased * num) + suf;
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          setTimeout(() => requestAnimationFrame(animate), i * 120);
+        });
+      }, 400);
+      heroObserver.disconnect();
+    }
+  }, { threshold: 0.5 });
+  heroObserver.observe(document.querySelector('.hero-stat-strip'));
+
+  // Contact Modal Logic
+  const modal = document.getElementById('contactModal');
+  const openBtn = document.getElementById('contactTeamBtn');
+  const closeBtns = document.querySelectorAll('.close-modal');
+  
+  function openModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+  
+  if (openBtn) openBtn.addEventListener('click', openModal);
+  closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  
+  // Copy functionality
+  const copyBtns = document.querySelectorAll('.copy-btn');
+  copyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const textToCopy = btn.getAttribute('data-copy');
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalText = btn.textContent;
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => { btn.textContent = originalText; }, 1500);
+      }).catch(() => { alert('Manual copy: ' + textToCopy); });
+    });
+  });
+</script>
+</body>
+</html>
